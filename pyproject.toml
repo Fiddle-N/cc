@@ -1,0 +1,17 @@
+[project]
+name = "cc"
+version = "0.1.0"
+description = "Coding Challenges (https://codingchallenges.fyi/) Implementations"
+readme = "README.md"
+authors = [
+    { name = "Fadil Nohur", email = "fadil.nohur@outlook.com" }
+]
+requires-python = ">=3.13"
+dependencies = []
+
+[project.scripts]
+cc = "cc:main"
+
+[build-system]
+requires = ["uv_build>=0.9.18,<0.10.0"]
+build-backend = "uv_build"
