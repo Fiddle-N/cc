@@ -1,13 +1,19 @@
 import io
+import json
+import struct
+
+from cc.compression import MAGIC_BYTES, CODE_MAP_LENGTH_FORMAT
 
 
-class Encoder:
-    def __init__(self, file: io.BytesIO, pref_code_tbl: dict[str, str]):
-        self.file = file
-        self.pref_code_tbl = pref_code_tbl
+def encode(source: io.BytesIO, target: io.BytesIO, codes: dict[str, str]) -> None:
+    # write header
+    json_codes = json.dumps(codes).encode("utf-8")
+    code_length = len(json_codes)
+    target.write(MAGIC_BYTES)
+    target.write(struct.pack(CODE_MAP_LENGTH_FORMAT, code_length))
+    target.write(json_codes)
 
-    def _write_header(self):
-        pass
-
-    def write(self):
-        pass
+    # write body
+    source.seek(0)
+    # for char in source.read():
+    #     code = codes[char]
