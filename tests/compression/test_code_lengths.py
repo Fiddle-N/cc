@@ -1,8 +1,8 @@
 from cc.compression.freq_tree import InternalNode, LeafNode
-from cc.compression.prefix_code import create_pref_code_tbl
+from cc.compression.code_lengths import create_code_lengths
 
 
-def test_create_pref_code_tbl():
+def test_create_code_lengths():
     freq_tree = InternalNode(
         LeafNode(120, "E"),
         InternalNode(
@@ -22,22 +22,22 @@ def test_create_pref_code_tbl():
             ),
         ),
     )
-    pref_code_tbl = create_pref_code_tbl(freq_tree)
-    assert pref_code_tbl == {
-        "E": "0",
-        "U": "100",
-        "L": "101",
-        "D": "110",
-        "C": "1110",
-        "Z": "111100",
-        "K": "111101",
-        "M": "11111",
+    code_lengths = create_code_lengths(freq_tree)
+    assert code_lengths == {
+        "E": 1,
+        "D": 3,
+        "L": 3,
+        "U": 3,
+        "C": 4,
+        "M": 5,
+        "K": 6,
+        "Z": 6,
     }
 
 
-def test_create_pref_code_tbl_single_element():
+def test_create_code_lengths_single_element():
     freq_tree = LeafNode(120, "E")
-    pref_code_tbl = create_pref_code_tbl(freq_tree)
-    assert pref_code_tbl == {
-        "E": "0",
+    code_lengths = create_code_lengths(freq_tree)
+    assert code_lengths == {
+        "E": 1,
     }
