@@ -11,3 +11,7 @@ wheels/
 
 # IntelliJ
 .idea
+
+# Other
+*.txt
+*.ipynb
