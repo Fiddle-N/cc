@@ -5,30 +5,30 @@ from cc.compression.freq_tree import create_freq_tree, InternalNode, LeafNode
 
 def test_create_freq_tree():
     freqs = {
-        "C": 32,
-        "D": 42,
-        "E": 120,
-        "K": 7,
-        "L": 42,
-        "M": 24,
-        "U": 37,
-        "Z": 2,
+        67: 32,
+        68: 42,
+        69: 120,
+        75: 7,
+        76: 42,
+        77: 24,
+        85: 37,
+        90: 2,
     }
     freq_tree = create_freq_tree(freqs)
     assert freq_tree == InternalNode(
-        LeafNode(120, "E"),
+        LeafNode(120, 69),
         InternalNode(
             InternalNode(
-                LeafNode(37, "U"),
-                LeafNode(42, "L"),
+                LeafNode(37, 85),
+                LeafNode(42, 76),
             ),
             InternalNode(
-                LeafNode(42, "D"),
+                LeafNode(42, 68),
                 InternalNode(
-                    LeafNode(32, "C"),
+                    LeafNode(32, 67),
                     InternalNode(
-                        InternalNode(LeafNode(2, "Z"), LeafNode(7, "K")),
-                        LeafNode(24, "M"),
+                        InternalNode(LeafNode(2, 90), LeafNode(7, 75)),
+                        LeafNode(24, 77),
                     ),
                 ),
             ),
@@ -37,9 +37,9 @@ def test_create_freq_tree():
 
 
 def test_create_freq_tree_single_element():
-    freqs = {"C": 32}
+    freqs = {67: 32}
     freq_tree = create_freq_tree(freqs)
-    assert freq_tree == LeafNode(32, "C")
+    assert freq_tree == LeafNode(32, 67)
 
 
 def test_create_freq_tree_no_elements():

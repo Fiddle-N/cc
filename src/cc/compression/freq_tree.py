@@ -10,7 +10,7 @@ class Node(Protocol):
 @dataclass(frozen=True)
 class LeafNode(Node):
     weight: int
-    element: str
+    element: int
 
 
 @dataclass(frozen=True)
@@ -29,7 +29,7 @@ class NodeItem:
     weight: int
 
 
-def create_freq_tree(freqs: dict[str, int]) -> Node:
+def create_freq_tree(freqs: dict[int, int]) -> Node:
     if not freqs:
         raise ValueError("Frequency tree must be populated")
 

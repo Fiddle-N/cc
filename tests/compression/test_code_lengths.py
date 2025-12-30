@@ -4,19 +4,19 @@ from cc.compression.code_lengths import create_code_lengths
 
 def test_create_code_lengths():
     freq_tree = InternalNode(
-        LeafNode(120, "E"),
+        LeafNode(120, 69),
         InternalNode(
             InternalNode(
-                LeafNode(37, "U"),
-                LeafNode(42, "L"),
+                LeafNode(37, 85),
+                LeafNode(42, 68),
             ),
             InternalNode(
-                LeafNode(42, "D"),
+                LeafNode(42, 76),
                 InternalNode(
-                    LeafNode(32, "C"),
+                    LeafNode(32, 67),
                     InternalNode(
-                        InternalNode(LeafNode(2, "Z"), LeafNode(7, "K")),
-                        LeafNode(24, "M"),
+                        InternalNode(LeafNode(2, 90), LeafNode(7, 75)),
+                        LeafNode(24, 77),
                     ),
                 ),
             ),
@@ -24,20 +24,20 @@ def test_create_code_lengths():
     )
     code_lengths = create_code_lengths(freq_tree)
     assert code_lengths == {
-        "E": 1,
-        "D": 3,
-        "L": 3,
-        "U": 3,
-        "C": 4,
-        "M": 5,
-        "K": 6,
-        "Z": 6,
+        69: 1,
+        85: 3,
+        68: 3,
+        76: 3,
+        67: 4,
+        77: 5,
+        75: 6,
+        90: 6,
     }
 
 
 def test_create_code_lengths_single_element():
-    freq_tree = LeafNode(120, "E")
+    freq_tree = LeafNode(120, 69)
     code_lengths = create_code_lengths(freq_tree)
     assert code_lengths == {
-        "E": 1,
+        69: 1,
     }
