@@ -1,10 +1,9 @@
 import argparse
 import json
-import struct
 from collections import Counter
 from io import BufferedIOBase
 
-from cc.compression import MAGIC_BYTES, CODE_MAP_LENGTH_FORMAT
+from cc.compression import MAGIC_BYTES
 from cc.compression.bit_writer import BitWriter
 from cc.compression.code_assignment import assign
 from cc.compression.code_lengths import create_code_lengths
@@ -19,10 +18,14 @@ def compress_file(input_file: BufferedIOBase, output_file: BufferedIOBase) -> No
     codes = assign(code_lengths)
 
     # write header
-    json_code_lengths = json.dumps(code_lengths).encode("utf-8")
+    json_code_lengths = json.dumps(code_lengths).encode(
+        "utf-8"
+    )  # int keys will be converted to strings
     code_length = len(json_code_lengths)
     output_file.write(MAGIC_BYTES)
-    output_file.write(struct.pack(CODE_MAP_LENGTH_FORMAT, code_length))
+    output_file.write(
+        code_length.to_bytes(length=2, byteorder="big")
+    )  # network-order (big-endian) uint16
     output_file.write(json_code_lengths)
 
     # write body
