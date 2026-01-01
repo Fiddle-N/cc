@@ -125,4 +125,4 @@ def main():
     if args.command == "compress":
         compress(args.input, args.output)
     elif args.command == "decompress":
-        print("TODO")
+        decompress(args.input, args.output)
