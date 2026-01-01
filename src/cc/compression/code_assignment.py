@@ -11,3 +11,7 @@ def assign(code_lengths: dict[int, int]) -> dict[int, tuple[int, int]]:
         prev_length = length
         curr_code = code + 1
     return code_assignment
+
+
+def reverse(code_lengths: dict[int, tuple[int, int]]) -> dict[tuple[int, int], int]:
+    return {code_length: code for code, code_length in code_lengths.items()}

@@ -1,8 +1,8 @@
-import io
+from io import Writer
 
 
 class BitWriter:
-    def __init__(self, file: io.BufferedIOBase):
+    def __init__(self, file: Writer[bytes]):
         self.file = file
         self.buffer = 0
         self.nbits = 0
@@ -26,3 +26,9 @@ class BitWriter:
             self.file.write(bytes([self.buffer]))
             return self.nbits  # number of valid bits in final byte
         return 0
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.flush()
