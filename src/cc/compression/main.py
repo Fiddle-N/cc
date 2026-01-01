@@ -96,7 +96,7 @@ def decompress_file(input_file: Reader[bytes], output_file: Writer[bytes]) -> No
 
 
 def decompress(input_filename: str, output_filename: str) -> None:
-    with open(input_filename, "rb") as input_file, TemporaryFile("wb") as tmp_output:
+    with open(input_filename, "rb") as input_file, TemporaryFile("w+b") as tmp_output:
         decompress_file(
             input_file, tmp_output
         )  # if decompression error raised, close tmp file immediately
